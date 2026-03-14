@@ -4,17 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock-Paper-Scissor</title>
-    <script src = "game.js"></script>
-     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-  <h1>LET'S PLAY!!!</h1>
-    <!-- to create good visual effects -->
-  <div class="buttons"> 
-    <p>ROCK</p>
-    <p>PAPER</p>
-    <p>SCISSOR</p>
-  </div>
+  <header class="top-bar">
+    <h1>ROCK PAPER SCISSORS</h1>
+  </header>
+
+  <main class="stage">
+    <section class="panel" aria-label="Rock paper scissors game board">
+      <div class="result-wrap">
+        <p id="result">Pick your move</p>
+      </div>
+
+      <div class="hands" aria-live="polite">
+        <div class="hand-col">
+          <div id="human-hand" class="hand-icon" aria-hidden="true">✊</div>
+          <div id="human" class="score-text">Player: 0</div>
+        </div>
+        <div class="hand-col">
+          <div id="computer-hand" class="hand-icon" aria-hidden="true">✊</div>
+          <div id="computer" class="score-text">Computer: 0</div>
+        </div>
+      </div>
+
+      <div class="controls" role="group" aria-label="Game choices">
+        <button id="r" class="choice-btn" aria-label="Rock">✊</button>
+        <button id="p" class="choice-btn" aria-label="Paper">✋</button>
+        <button id="s" class="choice-btn" aria-label="Scissor">✌️</button>
+      </div>
+
+      <button id="reset" class="reset-btn">RESET GAME</button>
+    </section>
+  </main>
+  <script src = "game.js"></script>
 </body>
 </html>

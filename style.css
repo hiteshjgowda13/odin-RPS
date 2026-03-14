@@ -1,29 +1,150 @@
+
+:root {
+	--bg-top: #1e2a1f;
+	--bg-main: #2f4a3f;
+	--text: #f2f2f2;
+	--muted: #aeb7c2;
+	--accent: #f4c450;
+	--panel-btn: #3b4350;
+	--panel-btn-hover: #4a5463;
+}
+
 body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;      
-
-    background-color: rgb(96, 33, 41);
+	margin: 0;
+	min-height: 100vh;
+	background: linear-gradient(180deg, var(--bg-top) 0 18%, var(--bg-main) 18% 100%);
+	color: var(--text);
+	font-family: "Inter", sans-serif;
 }
 
-h1 {
-    color: aquamarine;
-    margin-bottom: 50px;
+.top-bar {
+	min-height: 8.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
 }
 
-.buttons {
-    width: 60%;
-    margin-top: 10%;
-
-    display: flex;
-    justify-content: space-around;
+.top-bar h1 {
+	margin: 0;
+	color: var(--accent);
+	font-family: "Press Start 2P", monospace;
+	font-size: clamp(1rem, 3vw, 1.7rem);
+	letter-spacing: 0.04em;
+	text-align: center;
 }
 
-p {
-    padding: 20px 40px;
-    background-color: rgb(35, 115, 181);
-    color: antiquewhite;
-    border: 2px solid white;
+.stage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1.2rem 1rem 2rem;
+}
+
+.panel {
+	width: min(760px, 100%);
+	padding: clamp(1.2rem, 4vw, 2.2rem);
+	border-radius: 20px;
+	background: linear-gradient(170deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.result-wrap {
+	text-align: center;
+	min-height: 5.5rem;
+}
+
+#result {
+	margin: 0;
+	font-size: clamp(1.2rem, 3.5vw, 2.2rem);
+	font-weight: 800;
+	line-height: 1.28;
+}
+
+.hands {
+	margin-top: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+	gap: 1.2rem;
+}
+
+.hand-col {
+	flex: 1 1 0;
+	text-align: center;
+	padding: 0.8rem;
+}
+
+.hand-icon {
+	font-size: clamp(3.2rem, 9vw, 4.6rem);
+	line-height: 1;
+	margin-bottom: 0.8rem;
+}
+
+.score-text {
+	font-size: clamp(1.2rem, 3vw, 2.1rem);
+	font-weight: 800;
+}
+
+.controls {
+	margin-top: 1.6rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.8rem;
+}
+
+button {
+	font: inherit;
+	color: var(--text);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 14px;
+	cursor: pointer;
+	transition: transform 0.14s ease, background-color 0.14s ease;
+}
+
+.choice-btn {
+	flex: 1 1 0;
+	background: var(--panel-btn);
+	font-size: clamp(2rem, 6vw, 2.8rem);
+	padding: 1rem 0;
+}
+
+.choice-btn:hover {
+	background: var(--panel-btn-hover);
+	transform: translateY(-2px);
+}
+
+.reset-btn {
+	margin-top: 0.95rem;
+	width: 100%;
+	background: transparent;
+	color: var(--muted);
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	padding: 0.75rem 0.8rem;
+}
+
+.reset-btn:hover {
+	color: var(--text);
+	background: rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 560px) {
+	.hands {
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.controls {
+		flex-wrap: wrap;
+	}
+
+	.choice-btn {
+		min-width: 30%;
+	}
+
+	.score-text {
+		font-size: 1.5rem;
+	}
 }

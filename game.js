@@ -10,16 +10,45 @@ function getComputerChoice() {
         return ("SCISSOR")
     }
 }
-function getHumanChoice(){
-    let user_choice = prompt("Rock,Paper,Scissor \nEnter valid choice :")
-    return user_choice.toUpperCase()
-}
+// function getHumanChoice(){
+//     let user_choice = prompt("Rock,Paper,Scissor \nEnter valid choice :")
+//     return user_choice.toUpperCase()
+// }
 
 
 let h_score = 0
 let c_score = 0
+const targetScore = 5;
+let gameLocked = false;
+const humanScore = document.querySelector("#human");
+const compScore =document.querySelector("#computer");
+const resultDiv = document.querySelector("#result");
+const humanHand = document.querySelector("#human-hand");
+const computerHand = document.querySelector("#computer-hand");
+const rockBtn = document.querySelector("#r");
+const paperBtn = document.querySelector("#p");
+const scissorBtn = document.querySelector("#s");
+const resetBtn = document.querySelector("#reset");
+const handEmoji = {
+    ROCK: "✊",
+    PAPER: "✋",
+    SCISSOR: "✌️"
+}
+
+function formatRoundResult(text){
+    if(text.includes("Tie!!")){
+        return "Tie round. Both played the same."
+    }
+    if(text.includes("You WIN!!")){
+        return `You won! ${text.split(",")[1]}`
+    }
+    if(text.includes("You LOOSE!!")){
+        return `You lost! ${text.split(",")[1]}`
+    }
+    return text
+}
+
 function PlayRound(human,computer){
-    
     if(human==computer){
         return("Tie!!,both played same")
     }
@@ -54,44 +83,64 @@ function PlayRound(human,computer){
     }
 }
 
-function PlayGame(){
-    let winner=PlayRound(h_choice,c_choice)
-    alert(`${winner}\nhuman = ${h_score}\t computer = ${c_score} `)
+function PlayGame(human){
+    if(gameLocked){
+        return;
+    }
+    let computer = getComputerChoice();
+    let roundResult = PlayRound(human,computer)
+    humanScore.textContent = `Player: ${h_score}`;
+    compScore.textContent = `Computer: ${c_score}`;
+    resultDiv.textContent = formatRoundResult(roundResult);
+    humanHand.textContent = handEmoji[human];
+    computerHand.textContent = handEmoji[computer];
+
+    if (h_score === targetScore || c_score === targetScore){
+        gameLocked = true;
+        winner();
+        setTimeout(() => {
+            reset();
+            gameLocked = false;
+        }, 1800);
+    }
+    //alert(`${roundResult}\nhuman = ${h_score}\t computer = ${c_score} `)
 }
 
 // game starts
 
-alert("5 rounds of ROCK PAPER SCISSOR STARTS NOW!!!")
-
-
-h_choice=getHumanChoice()
-c_choice=getComputerChoice()
-PlayGame()
-
-h_choice=getHumanChoice()
-c_choice=getComputerChoice()
-PlayGame()
-
-h_choice=getHumanChoice()
-c_choice=getComputerChoice()
-PlayGame()
-
-h_choice=getHumanChoice()
-c_choice=getComputerChoice()
-PlayGame()
-
-h_choice=getHumanChoice()
-c_choice=getComputerChoice()
-PlayGame()
-
-if(h_score > c_score){
-    alert(`Game ended!!!\nYou win \n${h_score}\t${c_score}\nRefresh to Restart`)
+rockBtn.addEventListener("click", ()=>{
+    PlayGame("ROCK");
+})
+paperBtn.addEventListener("click", ()=>{
+    PlayGame("PAPER");  
+})
+scissorBtn.addEventListener("click", ()=>{
+    PlayGame("SCISSOR");
+})
+resetBtn.addEventListener("click",()=>{
+    reset();
+    gameLocked = false;
+})
+function reset(){
+    h_score =0;
+    c_score =0;
+    humanScore.textContent = `Player: ${h_score}`;
+    compScore.textContent = `Computer: ${c_score}`;
+    resultDiv.textContent = "Pick your move";
+    humanHand.textContent = handEmoji.ROCK;
+    computerHand.textContent = handEmoji.ROCK;
 }
-else if(h_score < c_score){
-    alert(`Game ended!!!\nYou Lost \n${h_score}\t${c_score}\nRefresh to Restart`)
-}
-else{
-    alert(`Game ended!!!\nIts a Tie \n${h_score}\t${c_score}\nRefresh to Restart`)
+function winner(){
+    if(h_score > c_score){
+        resultDiv.textContent = `Game Over. You won ${h_score}-${c_score}`;
+        
+    }
+    else if(h_score < c_score){
+        resultDiv.textContent = `Game Over. You lost ${h_score}-${c_score}`;
+    }
+    else{
+        resultDiv.textContent = `Game Over. It's a tie ${h_score}-${c_score}`;
+    }
 }
 
 
